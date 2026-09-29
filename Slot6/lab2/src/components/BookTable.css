@@ -1,0 +1,59 @@
+.book-table-section {
+  background-color: #333333;
+  padding: 15px 0 50px;
+}
+
+.book-table-section .container {
+  max-width: 750px;
+}
+
+.book-table-title {
+  color: #ffffff;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.book-table-section .form-control,
+.book-table-section .form-select {
+  border-radius: 3px;
+  font-size: 13px;
+  border: 1px solid #ced4da;
+  height: 35px;
+  padding: 6px 10px;
+  background-color: #ffffff;
+  box-shadow: none;
+}
+
+.book-table-section .form-select {
+  color: #6c757d;
+}
+
+.book-table-section textarea.form-control {
+  height: 105px;
+  resize: vertical;
+  padding: 8px 10px;
+}
+
+.book-table-section .form-control:focus,
+.book-table-section .form-select:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 0.15rem rgba(255, 193, 7, 0.25);
+}
+
+.send-button {
+  background-color: #ffc107;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 3px;
+  padding: 7px 20px;
+  border: none;
+  font-size: 13px;
+  transition: background-color 0.2s ease;
+}
+
+.send-button:hover {
+  background-color: #e0a800;
+  color: #ffffff;
+}

@@ -1,0 +1,38 @@
+#pizzaBanner {
+  width: 100%;
+}
+
+#pizzaBanner .carousel-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#pizzaBanner .carousel-indicators {
+  margin-bottom: 12px;
+}
+
+#pizzaBanner .carousel-indicators button {
+  width: 25px;
+  height: 3px;
+  border-radius: 0;
+  border: none;
+  background-color: #ffffff;
+  opacity: 0.5;
+  margin: 0 4px;
+}
+
+#pizzaBanner .carousel-indicators button.active {
+  opacity: 1;
+}
+
+#pizzaBanner .carousel-control-prev,
+#pizzaBanner .carousel-control-next {
+  width: 6%;
+  opacity: 0.7;
+}
+
+#pizzaBanner .carousel-control-prev:hover,
+#pizzaBanner .carousel-control-next:hover {
+  opacity: 1;
+}

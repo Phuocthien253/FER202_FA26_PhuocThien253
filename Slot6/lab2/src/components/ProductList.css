@@ -1,0 +1,16 @@
+.menu-section {
+  background-color: #333333;
+  padding: 35px 0 20px;
+}
+
+.menu-section .container {
+  max-width: 750px;
+}
+
+.menu-title {
+  color: #ffffff;
+  font-size: 26px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  text-align: left;
+}
