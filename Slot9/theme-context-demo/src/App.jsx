@@ -1,17 +1,12 @@
-import { LanguageProvider } from "./contexts/LanguageContext";
-
-import LanguageHeader from "./components/LanguageHeader";
-import LanguageNavbar from "./components/LanguageNavbar";
-import LanguageHome from "./components/LanguageHome";
-import LanguageFooter from "./components/LanguageFooter";
+import { ToastProvider } from "./contexts/ToastContext";
+import ToastDemo from "./components/ToastDemo";
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <LanguageHeader />
-      <LanguageNavbar />
-      <LanguageHome />
-      <LanguageFooter />
-    </LanguageProvider>
+    <ToastProvider>
+      <div className="container py-4">
+        <ToastDemo />
+      </div>
+    </ToastProvider>
   );
 }
