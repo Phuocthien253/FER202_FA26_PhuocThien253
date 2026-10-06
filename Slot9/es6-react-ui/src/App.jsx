@@ -21,6 +21,8 @@ import ProductFilter from './components/ProductFilter';
 import ValidatedRegisterForm from './components/ValidatedRegisterForm';
 import TodoList from './components/TodoList';
 
+import CartDemoPage from './pages/CartDemoPage';
+
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -28,9 +30,9 @@ function App() {
 
       <main className="container my-4 flex-grow-1">
 
-        {/* ================================================= */}
-        {/* BTVN LAB4 - BÀI 1 */}
-        {/* ================================================= */}
+        {/* ============================= */}
+        {/* BÀI 1 */}
+        {/* ============================= */}
 
         <section className="mb-5">
           <h2 className="text-danger border-bottom pb-2">
@@ -61,9 +63,9 @@ function App() {
           <MiniCart />
         </section>
 
-        {/* ================================================= */}
-        {/* BTVN LAB4 - BÀI 2 */}
-        {/* ================================================= */}
+        {/* ============================= */}
+        {/* BÀI 2 */}
+        {/* ============================= */}
 
         <section className="mb-5">
           <h2 className="text-danger border-bottom pb-2">
@@ -73,9 +75,9 @@ function App() {
           <ProfilePreview />
         </section>
 
-        {/* ================================================= */}
-        {/* BTVN LAB4 - BÀI 3 */}
-        {/* ================================================= */}
+        {/* ============================= */}
+        {/* BÀI 3 */}
+        {/* ============================= */}
 
         <section className="mb-5">
           <h2 className="text-danger border-bottom pb-2">
@@ -87,9 +89,9 @@ function App() {
           />
         </section>
 
-        {/* ================================================= */}
-        {/* BTVN LAB4 - BÀI 4 */}
-        {/* ================================================= */}
+        {/* ============================= */}
+        {/* BÀI 4 */}
+        {/* ============================= */}
 
         <section className="mb-5">
           <h2 className="text-danger border-bottom pb-2">
@@ -99,9 +101,9 @@ function App() {
           <RegisterForm />
         </section>
 
-        {/* ================================================= */}
-        {/* BTVN LAB4 - BÀI 5 */}
-        {/* ================================================= */}
+        {/* ============================= */}
+        {/* BÀI 5 */}
+        {/* ============================= */}
 
         <section className="mb-5">
           <h2 className="text-danger border-bottom pb-2">
@@ -111,9 +113,9 @@ function App() {
           <ValidatedRegisterForm />
         </section>
 
-        {/* ================================================= */}
-        {/* BTVN LAB4 - BÀI 6 */}
-        {/* ================================================= */}
+        {/* ============================= */}
+        {/* BÀI 6 */}
+        {/* ============================= */}
 
         <section className="mb-5">
           <h2 className="text-danger border-bottom pb-2">
@@ -123,9 +125,21 @@ function App() {
           <TodoList />
         </section>
 
-        {/* ================================================= */}
+        {/* ============================= */}
+        {/* BÀI 7 */}
+        {/* ============================= */}
+
+        <section className="mb-5">
+          <h2 className="text-danger border-bottom pb-2">
+            BTVN Lab4 - Bài 7: Shopping Cart using useReducer
+          </h2>
+
+          <CartDemoPage />
+        </section>
+
+        {/* ============================= */}
         {/* CÁC BÀI ES6 CŨ */}
-        {/* ================================================= */}
+        {/* ============================= */}
 
         <section className="mb-5">
           <h3 className="text-primary border-bottom pb-2">
@@ -143,7 +157,8 @@ function App() {
           <StudentCard
             student={{
               id: 'SV180059',
-              name: 'Nguyen Phuoc Thien',
+              name:
+                'Nguyen Phuoc Thien',
               major:
                 'Kỹ thuật phần mềm',
               gpa: 3.5,
@@ -171,7 +186,7 @@ function App() {
 
         <section className="mb-5">
           <h3 className="text-primary border-bottom pb-2">
-            Bài 7: Giỏ hàng (CartTable)
+            Bài 7: Giỏ hàng ES6 cũ (CartTable)
           </h3>
 
           <CartTable />
