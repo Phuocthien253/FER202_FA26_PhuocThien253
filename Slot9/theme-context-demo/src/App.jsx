@@ -5,62 +5,67 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import {
-  AuthProvider,
-  useAuth,
-} from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
+import { CartProvider } from "./contexts/CartContext";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import ProductList from "./components/ProductList";
+import Cart from "./components/Cart";
+import ShopHeader from "./components/ShopHeader";
+
 import Login from "./pages/Login";
-
-function Dashboard() {
-  const { user, logout } = useAuth();
-
-  return (
-    <div className="container py-4">
-      <h2>Xin chào, {user.username}</h2>
-
-      <p>
-        Role: <b>{user.role}</b>
-      </p>
-
-      <button onClick={logout}>
-        Đăng xuất
-      </button>
-    </div>
-  );
-}
 
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/login"
-            element={<Login />}
-          />
+      <CartProvider>
+        <BrowserRouter>
+          <ShopHeader />
 
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="*"
-            element={
-              <Navigate
-                to="/login"
-                replace
+          <div className="container">
+            <Routes>
+              <Route
+                path="/login"
+                element={<Login />}
               />
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+
+              <Route
+                path="/products"
+                element={<ProductList />}
+              />
+
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/"
+                element={
+                  <Navigate
+                    to="/products"
+                    replace
+                  />
+                }
+              />
+
+              <Route
+                path="*"
+                element={
+                  <Navigate
+                    to="/products"
+                    replace
+                  />
+                }
+              />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </CartProvider>
     </AuthProvider>
   );
 }
