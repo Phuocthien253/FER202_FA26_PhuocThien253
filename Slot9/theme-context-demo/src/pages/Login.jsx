@@ -13,15 +13,24 @@ export default function Login() {
 
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (login(form.username, form.password)) {
-      navigate("/dashboard");
-    } else {
-      setError("Sai tài khoản hoặc mật khẩu");
-    }
-  };
+  setError("");
+
+  const success = await login(
+    form.username,
+    form.password
+  );
+
+  if (success) {
+    navigate("/dashboard");
+  } else {
+    setError(
+      "Sai tài khoản hoặc mật khẩu"
+    );
+  }
+};
 
   return (
     <div>

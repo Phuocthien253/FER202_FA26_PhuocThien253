@@ -6,7 +6,11 @@ import {
   useCallback,
 } from "react";
 
+import axios from "axios";
+
 const AuthContext = createContext(null);
+
+const API_URL = "http://localhost:3001";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
@@ -18,27 +22,42 @@ export function AuthProvider({ children }) {
   });
 
   const login = useCallback(
-    (username, password) => {
-      if (
-        username === "admin" &&
-        password === "123"
-      ) {
-        const userData = {
-          username,
-          role: "admin",
-        };
+    async (username, password) => {
+      try {
+        const response = await axios.get(
+          `${API_URL}/users`,
+          {
+            params: {
+              username,
+              password,
+            },
+          }
+        );
 
-        setUser(userData);
+        const users = response.data;
+
+        if (users.length === 0) {
+          return false;
+        }
+
+        const loggedInUser = users[0];
+
+        setUser(loggedInUser);
 
         localStorage.setItem(
           "user",
-          JSON.stringify(userData)
+          JSON.stringify(loggedInUser)
         );
 
         return true;
-      }
+      } catch (error) {
+        console.error(
+          "Login error:",
+          error
+        );
 
-      return false;
+        return false;
+      }
     },
     []
   );
@@ -51,7 +70,7 @@ export function AuthProvider({ children }) {
   const value = useMemo(
     () => ({
       user,
-      isAuthenticated: !!user,
+      isAuthenticated: Boolean(user),
       login,
       logout,
     }),
@@ -68,7 +87,7 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   const context = useContext(AuthContext);
 
-  if (!context) {
+  if (context === null) {
     throw new Error(
       "useAuth phải nằm trong <AuthProvider>"
     );
