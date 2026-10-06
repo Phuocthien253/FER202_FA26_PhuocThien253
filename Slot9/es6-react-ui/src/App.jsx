@@ -76,6 +76,18 @@ function App() {
         </section>
 
         {/* ================================================= */}
+        {/* BTVN LAB4 - BÀI 4 */}
+        {/* ================================================= */}
+
+        <section className="mb-5">
+          <h2 className="text-danger border-bottom pb-2">
+            BTVN Lab4 - Bài 4: Controlled Registration Form
+          </h2>
+
+          <RegisterForm />
+        </section>
+
+        {/* ================================================= */}
         {/* CÁC BÀI ES6 CŨ */}
         {/* ================================================= */}
 
@@ -123,13 +135,6 @@ function App() {
           <CartTable />
         </section>
 
-        <section className="mb-5">
-          <h3 className="text-primary border-bottom pb-2">
-            Bài 8: Form đăng ký (RegisterForm)
-          </h3>
-
-          <RegisterForm />
-        </section>
       </main>
 
       {/* Footer từ project ES6 */}
