@@ -19,6 +19,7 @@ import MiniCart from './components/MiniCart';
 import ProfilePreview from './components/ProfilePreview';
 import ProductFilter from './components/ProductFilter';
 import ValidatedRegisterForm from './components/ValidatedRegisterForm';
+import TodoList from './components/TodoList';
 
 function App() {
   return (
@@ -37,12 +38,18 @@ function App() {
           </h2>
 
           <div className="mb-4">
-            <h5>Quantity Picker 1</h5>
+            <h5>
+              Quantity Picker 1
+            </h5>
+
             <QuantityPicker />
           </div>
 
           <div className="mb-4">
-            <h5>Quantity Picker 2</h5>
+            <h5>
+              Quantity Picker 2
+            </h5>
+
             <QuantityPicker
               min={2}
               max={5}
@@ -102,6 +109,18 @@ function App() {
           </h2>
 
           <ValidatedRegisterForm />
+        </section>
+
+        {/* ================================================= */}
+        {/* BTVN LAB4 - BÀI 6 */}
+        {/* ================================================= */}
+
+        <section className="mb-5">
+          <h2 className="text-danger border-bottom pb-2">
+            BTVN Lab4 - Bài 6: Todo List using useState
+          </h2>
+
+          <TodoList />
         </section>
 
         {/* ================================================= */}
