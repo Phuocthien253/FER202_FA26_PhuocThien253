@@ -2,10 +2,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 
 import {
   APP_NAME,
-  menuItems,
 } from '../../data/menu';
 
 import {
@@ -16,7 +16,29 @@ import {
   useAuth,
 } from '../../context/AuthContext';
 
-const Header = () => {
+import {
+  useCart,
+} from '../../context/CartContext';
+
+const menuItems = [
+  {
+    key: 'shop',
+    label: 'Cửa hàng',
+  },
+  {
+    key: 'cart',
+    label: 'Giỏ hàng',
+  },
+  {
+    key: 'checkout',
+    label: 'Thanh toán',
+  },
+];
+
+const Header = ({
+  currentPage,
+  onNavigate,
+}) => {
   const {
     theme,
     toggleTheme,
@@ -27,6 +49,18 @@ const Header = () => {
     isLoggedIn,
     logout,
   } = useAuth();
+
+  const {
+    totalQuantity,
+  } = useCart();
+
+  const handleNavClick = (
+    event,
+    key
+  ) => {
+    event.preventDefault();
+    onNavigate(key);
+  };
 
   return (
     <Navbar
@@ -39,23 +73,57 @@ const Header = () => {
       expand="md"
     >
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand
+          href="#"
+          onClick={(event) =>
+            handleNavClick(
+              event,
+              'shop'
+            )
+          }
+        >
           {APP_NAME}
         </Navbar.Brand>
 
         <Navbar.Toggle
-          aria-controls="navbar-nav"
+          aria-controls="main-nav"
         />
 
-        <Navbar.Collapse id="navbar-nav">
+        <Navbar.Collapse id="main-nav">
           <Nav className="me-auto">
             {menuItems.map(
-              ({ label, href }) => (
+              ({
+                key,
+                label,
+              }) => (
                 <Nav.Link
-                  key={label}
-                  href={href}
+                  key={key}
+                  href={`#${key}`}
+                  active={
+                    currentPage === key
+                  }
+                  onClick={(event) =>
+                    handleNavClick(
+                      event,
+                      key
+                    )
+                  }
                 >
                   {label}
+
+                  {key === 'cart' &&
+                    totalQuantity >
+                      0 && (
+                      <Badge
+                        bg="warning"
+                        text="dark"
+                        className="ms-1"
+                      >
+                        {
+                          totalQuantity
+                        }
+                      </Badge>
+                    )}
                 </Nav.Link>
               )
             )}
@@ -65,7 +133,9 @@ const Header = () => {
             <Button
               size="sm"
               variant="outline-light"
-              onClick={toggleTheme}
+              onClick={
+                toggleTheme
+              }
             >
               {theme === 'light'
                 ? '🌙 Tối'
@@ -88,9 +158,17 @@ const Header = () => {
                 </Button>
               </>
             ) : (
-              <Navbar.Text className="text-white-50">
-                Chưa đăng nhập
-              </Navbar.Text>
+              <Button
+                size="sm"
+                variant="light"
+                onClick={() =>
+                  onNavigate(
+                    'login'
+                  )
+                }
+              >
+                Đăng nhập
+              </Button>
             )}
           </div>
         </Navbar.Collapse>

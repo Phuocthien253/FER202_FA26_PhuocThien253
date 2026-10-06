@@ -1,7 +1,6 @@
 import Container from 'react-bootstrap/Container';
 
 import Header from './Header';
-import Footer from './Footer';
 
 import {
   useTheme,
@@ -10,6 +9,8 @@ import {
 const Layout = ({
   children,
   title = 'Trang chủ',
+  currentPage,
+  onNavigate,
 }) => {
   const {
     theme,
@@ -18,19 +19,24 @@ const Layout = ({
   return (
     <div
       data-bs-theme={theme}
-      className="bg-body text-body min-vh-100 d-flex flex-column"
+      className="bg-body text-body min-vh-100 pb-5"
     >
-      <Header />
+      <Header
+        currentPage={
+          currentPage
+        }
+        onNavigate={
+          onNavigate
+        }
+      />
 
-      <Container className="my-4 flex-grow-1">
-        <h2 className="mb-4">
+      <Container>
+        <h2 className="my-4">
           {title}
         </h2>
 
         {children}
       </Container>
-
-      <Footer />
     </div>
   );
 };

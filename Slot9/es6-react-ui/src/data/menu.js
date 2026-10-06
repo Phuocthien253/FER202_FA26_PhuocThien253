@@ -1,4 +1,4 @@
-export const APP_NAME = 'ES6 Shop';
+export const APP_NAME = 'FPT Shop Mini';
 export const menuItems = [
   { label: 'Trang chủ', href: '#home' },
   { label: 'Sản phẩm', href: '#products' },
