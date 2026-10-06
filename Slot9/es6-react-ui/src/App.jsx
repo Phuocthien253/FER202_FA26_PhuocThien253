@@ -11,28 +11,30 @@ import {
 import { products } from './data/products';
 import studentAvatar from './assets/student-avatar.jpeg';
 
-// BTVN Lab4 - Hooks
+// =========================
+// BTVN LAB4 - REACT HOOKS
+// =========================
 import QuantityPicker from './components/QuantityPicker';
 import MiniCart from './components/MiniCart';
+import ProfilePreview from './components/ProfilePreview';
+import ProductFilter from './components/ProductFilter';
 
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* Header từ Bài 9 ES6 */}
+      {/* Header từ project ES6 */}
       <Header />
 
       <main className="container my-4 flex-grow-1">
 
-        {/* ========================= */}
-        {/* BTVN LAB4 - REACT HOOKS */}
-        {/* ========================= */}
+        {/* ================================================= */}
+        {/* BTVN LAB4 - BÀI 1 */}
+        {/* ================================================= */}
 
         <section className="mb-5">
           <h2 className="text-danger border-bottom pb-2">
             BTVN Lab4 - Bài 1: Quantity Picker and Mini Cart using useState
           </h2>
-
-          {/* PHẦN 1 - QUANTITY PICKER */}
 
           <div className="mb-4">
             <h5>Quantity Picker 1</h5>
@@ -46,14 +48,36 @@ function App() {
 
           <hr className="my-4" />
 
-          {/* PHẦN 2 - MINI CART */}
-
           <MiniCart />
         </section>
 
-        {/* ========================= */}
+        {/* ================================================= */}
+        {/* BTVN LAB4 - BÀI 2 */}
+        {/* ================================================= */}
+
+        <section className="mb-5">
+          <h2 className="text-danger border-bottom pb-2">
+            BTVN Lab4 - Bài 2: Profile Preview
+          </h2>
+
+          <ProfilePreview />
+        </section>
+
+        {/* ================================================= */}
+        {/* BTVN LAB4 - BÀI 3 */}
+        {/* ================================================= */}
+
+        <section className="mb-5">
+          <h2 className="text-danger border-bottom pb-2">
+            BTVN Lab4 - Bài 3: Product Search, Filter and Sort
+          </h2>
+
+          <ProductFilter products={products} />
+        </section>
+
+        {/* ================================================= */}
         {/* CÁC BÀI ES6 CŨ */}
-        {/* ========================= */}
+        {/* ================================================= */}
 
         <section className="mb-5">
           <h3 className="text-primary border-bottom pb-2">
@@ -108,7 +132,7 @@ function App() {
         </section>
       </main>
 
-      {/* Footer từ Bài 9 ES6 */}
+      {/* Footer từ project ES6 */}
       <Footer />
     </div>
   );
