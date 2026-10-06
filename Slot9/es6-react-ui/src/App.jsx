@@ -18,11 +18,11 @@ import QuantityPicker from './components/QuantityPicker';
 import MiniCart from './components/MiniCart';
 import ProfilePreview from './components/ProfilePreview';
 import ProductFilter from './components/ProductFilter';
+import ValidatedRegisterForm from './components/ValidatedRegisterForm';
 
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* Header từ project ES6 */}
       <Header />
 
       <main className="container my-4 flex-grow-1">
@@ -43,7 +43,10 @@ function App() {
 
           <div className="mb-4">
             <h5>Quantity Picker 2</h5>
-            <QuantityPicker min={2} max={5} />
+            <QuantityPicker
+              min={2}
+              max={5}
+            />
           </div>
 
           <hr className="my-4" />
@@ -72,7 +75,9 @@ function App() {
             BTVN Lab4 - Bài 3: Product Search, Filter and Sort
           </h2>
 
-          <ProductFilter products={products} />
+          <ProductFilter
+            products={products}
+          />
         </section>
 
         {/* ================================================= */}
@@ -85,6 +90,18 @@ function App() {
           </h2>
 
           <RegisterForm />
+        </section>
+
+        {/* ================================================= */}
+        {/* BTVN LAB4 - BÀI 5 */}
+        {/* ================================================= */}
+
+        <section className="mb-5">
+          <h2 className="text-danger border-bottom pb-2">
+            BTVN Lab4 - Bài 5: Registration Form Validation
+          </h2>
+
+          <ValidatedRegisterForm />
         </section>
 
         {/* ================================================= */}
@@ -108,12 +125,16 @@ function App() {
             student={{
               id: 'SV180059',
               name: 'Nguyen Phuoc Thien',
-              major: 'Kỹ thuật phần mềm',
+              major:
+                'Kỹ thuật phần mềm',
               gpa: 3.5,
-              avatar: studentAvatar,
+              avatar:
+                studentAvatar,
               contact: {
-                email: 'phuocthien189@gmail.com',
-                phone: '0779409856',
+                email:
+                  'phuocthien189@gmail.com',
+                phone:
+                  '0779409856',
               },
             }}
           />
@@ -124,7 +145,9 @@ function App() {
             Bài 4 & 5: Danh sách sản phẩm (ProductList)
           </h3>
 
-          <ProductList products={products} />
+          <ProductList
+            products={products}
+          />
         </section>
 
         <section className="mb-5">
@@ -137,7 +160,6 @@ function App() {
 
       </main>
 
-      {/* Footer từ project ES6 */}
       <Footer />
     </div>
   );
