@@ -20,6 +20,7 @@ import ProfilePreview from './components/ProfilePreview';
 import ProductFilter from './components/ProductFilter';
 import ValidatedRegisterForm from './components/ValidatedRegisterForm';
 import TodoList from './components/TodoList';
+import LoginForm from './components/LoginForm';
 
 import CartDemoPage from './pages/CartDemoPage';
 
@@ -138,6 +139,18 @@ function App() {
         </section>
 
         {/* ============================= */}
+        {/* BÀI 8 */}
+        {/* ============================= */}
+
+        <section className="mb-5">
+          <h2 className="text-danger border-bottom pb-2">
+            BTVN Lab4 - Bài 8: Login Form using useReducer
+          </h2>
+
+          <LoginForm />
+        </section>
+
+        {/* ============================= */}
         {/* CÁC BÀI ES6 CŨ */}
         {/* ============================= */}
 
@@ -162,8 +175,7 @@ function App() {
               major:
                 'Kỹ thuật phần mềm',
               gpa: 3.5,
-              avatar:
-                studentAvatar,
+              avatar: studentAvatar,
               contact: {
                 email:
                   'phuocthien189@gmail.com',
