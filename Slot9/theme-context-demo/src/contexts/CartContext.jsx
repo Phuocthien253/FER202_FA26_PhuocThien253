@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useReducer,
 } from "react";
 
@@ -12,11 +13,40 @@ import {
 const CartStateContext = createContext(null);
 const CartDispatchContext = createContext(null);
 
+const CART_STORAGE_KEY = "cart";
+
+function initCart() {
+  try {
+    const savedCart = localStorage.getItem(
+      CART_STORAGE_KEY
+    );
+
+    return savedCart
+      ? JSON.parse(savedCart)
+      : initialCart;
+  } catch (error) {
+    console.error(
+      "Không thể đọc giỏ hàng từ localStorage:",
+      error
+    );
+
+    return initialCart;
+  }
+}
+
 export function CartProvider({ children }) {
   const [state, dispatch] = useReducer(
     cartReducer,
-    initialCart
+    undefined,
+    initCart
   );
+
+  useEffect(() => {
+    localStorage.setItem(
+      CART_STORAGE_KEY,
+      JSON.stringify(state)
+    );
+  }, [state]);
 
   return (
     <CartStateContext.Provider value={state}>
