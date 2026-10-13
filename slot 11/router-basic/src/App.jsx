@@ -5,6 +5,8 @@ import { HomePage } from './pages/HomePage';
 import SkillsPage from './pages/SkillsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
+import { NotFoundPage } from './pages/NotFoundPage';
+
 import { AppNavbar } from './components/AppNavbar';
 
 function App() {
@@ -13,10 +15,27 @@ function App() {
       <AppNavbar />
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/skills" element={<SkillsPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
+<Route path="*" element={<NotFoundPage />} />
+
+        <Route
+          path="/skills"
+          element={<SkillsPage />}
+        />
+
+        <Route
+          path="/projects"
+          element={<ProjectsPage />}
+        />
+
+        <Route
+          path="/contact"
+          element={<ContactPage />}
+        />
+
+        <Route
+          path="*"
+          element={<NotFoundPage />}
+        />
       </Routes>
     </>
   );
