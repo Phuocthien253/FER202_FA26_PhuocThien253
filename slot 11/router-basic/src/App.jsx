@@ -1,27 +1,36 @@
 
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { HomePage } from './pages/HomePage';
-import SkillsPage from './pages/SkillsPage';
-import ProjectsPage from './pages/ProjectsPage';
-import ContactPage from './pages/ContactPage';
-import { NotFoundPage } from './pages/NotFoundPage';
-
-import { AppNavbar } from './components/AppNavbar';
+import MainLayout from './bai2/MainLayout';
+import HomePage from './bai2/HomePage';
+import BooksPage from './bai2/BooksPage';
+import HelpLayout from './bai2/HelpLayout';
+import FaqPage from './bai2/FaqPage';
+import RulesPage from './bai2/RulesPage';
+import NotFoundPage from './bai2/NotFoundPage';
 
 function App() {
   return (
-    <>
-      <AppNavbar />
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/skills" element={<SkillsPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
+        <Route path="books" element={<BooksPage />} />
+
+        <Route path="help" element={<HelpLayout />}>
+          <Route
+            index
+            element={<Navigate to="faq" replace />}
+          />
+
+          <Route path="faq" element={<FaqPage />} />
+
+          <Route path="rules" element={<RulesPage />} />
+        </Route>
+
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </>
+      </Route>
+    </Routes>
   );
 }
 
