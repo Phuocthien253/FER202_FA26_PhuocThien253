@@ -1,25 +1,23 @@
 
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-import CourseListPage from './bai3/CourseListPage';
-import CourseDetailPage from './bai3/CourseDetailPage';
+import EventPage from './bai4/EventPage';
+import RegisterPage from './bai4/RegisterPage';
+import SuccessPage from './bai4/SuccessPage';
 
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<EventPage />} />
+
       <Route
-        path="/"
-        element={<Navigate to="/courses" replace />}
+        path="/register"
+        element={<RegisterPage />}
       />
 
       <Route
-        path="/courses"
-        element={<CourseListPage />}
-      />
-
-      <Route
-        path="/courses/:code"
-        element={<CourseDetailPage />}
+        path="/success"
+        element={<SuccessPage />}
       />
     </Routes>
   );
