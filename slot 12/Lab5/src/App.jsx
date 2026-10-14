@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import ProductList from "./pages/ProductList";
 import NavigationBar from "./components/Navbar";
 import MyCarousel from "./components/MyCarousel";
 import Footer from "./components/Footer";
@@ -20,6 +20,7 @@ function App() {
 
         <main className="flex-grow-1">
           <Routes>
+            <Route path="/products" element={<ProductList />} />
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/news" element={<News />} />
