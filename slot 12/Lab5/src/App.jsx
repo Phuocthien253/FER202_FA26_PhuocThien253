@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import NavigationBar from "./components/Navbar";
+import MyCarousel from "./components/MyCarousel";
 import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
@@ -14,6 +15,8 @@ function App() {
       <div className="d-flex flex-column min-vh-100">
 
         <NavigationBar />
+
+        <MyCarousel />
 
         <main className="flex-grow-1">
           <Routes>
