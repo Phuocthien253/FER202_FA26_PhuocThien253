@@ -1,5 +1,5 @@
 
-import AxiosDemo from './AxiosDemo';
+import AxiosDemo from './components/AxiosDemo';
 
 function App() {
   return (
