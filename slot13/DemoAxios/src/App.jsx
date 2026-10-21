@@ -5,12 +5,17 @@ import CreatePost from './components/CreatePost';
 import UpdatePost from './components/UpdatePost';
 import PatchPost from './components/PatchPost';
 import DeletePost from './components/DeletePost';
+import RequestConfig from './components/RequestConfig';
 
 function App() {
   return (
     <div className="container mt-5">
       <h1>DemoAxios</h1>
       <hr />
+
+      <RequestConfig />
+
+      <hr className="my-5" />
 
       <DeletePost />
 
