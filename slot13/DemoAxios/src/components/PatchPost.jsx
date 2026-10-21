@@ -8,31 +8,33 @@ const PatchPost = () => {
   const [error, setError] = useState(null);
   const [updating, setUpdating] = useState(false);
 
-  const handlePatch = () => {
-    if (!title.trim()) return;
 
-    setUpdating(true);
-    setError(null);
-    setResult(null);
+const handlePatch = async () => {
+  if (!title.trim()) return;
 
-    axios
-      .patch(
-        'https://jsonplaceholder.typicode.com/posts/1',
-        { title: title }
-      )
-      .then(response => {
-        setResult({
-          status: response.status,
-          data: response.data
-        });
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setUpdating(false);
-      });
-  };
+  setUpdating(true);
+  setError(null);
+  setResult(null);
+
+  try {
+    const response = await axios.patch(
+      'https://jsonplaceholder.typicode.com/posts/1',
+      { title: title }
+    );
+
+    setResult({
+      status: response.status,
+      data: response.data
+    });
+
+  } catch (error) {
+    setError(error.message);
+
+  } finally {
+    setUpdating(false);
+  }
+};
+
 
   return (
     <div className="container mt-4">

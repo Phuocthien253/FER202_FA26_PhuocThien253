@@ -9,54 +9,60 @@ const UpdatePost = () => {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [updating, setUpdating] = useState(false);
+  const [loadingPost, setLoadingPost] = useState(true);
+
+  // Giu nguyen useEffect va handleUpdate ben duoi
+
 
   // GET: Lay du lieu bai viet hien tai
-  useEffect(() => {
-    axios
-      .get(URL)
-      .then(response => {
-        setPost(response.data);
-      })
-      .catch(error => {
-        setError(error.message);
-      });
-  }, []);
-
-  // PUT: Cap nhat toan bo bai viet
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    setUpdating(true);
-    setError(null);
-    setResult(null);
-
-    axios
-      .put(URL, {
-        id: post.id,
-        userId: post.userId,
-        title: post.title,
-        body: post.body
-      })
-      .then(response => {
-        setResult({
-          status: response.status,
-          data: response.data
-        });
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setUpdating(false);
-      });
+  
+useEffect(() => {
+  const fetchPost = async () => {
+    try {
+      const response = await axios.get(URL);
+      setPost(response.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoadingPost(false);
+    }
   };
 
-  if (!post) {
-    return (
-      <div>
-        {error ? `Error: ${error}` : 'Loading...'}
-      </div>
-    );
+  fetchPost();
+}, []);
+
+  // PUT: Cap nhat toan bo bai viet
+
+const handleUpdate = async (e) => {
+  e.preventDefault();
+  setUpdating(true);
+  setError(null);
+  setResult(null);
+
+  try {
+    const response = await axios.put(URL, {
+      id: post.id,
+      userId: post.userId,
+      title: post.title,
+      body: post.body
+    });
+
+    setResult({
+      status: response.status,
+      data: response.data
+    });
+
+  } catch (error) {
+    setError(error.message);
+
+  } finally {
+    setUpdating(false);
   }
+};
+
+
+if (loadingPost) return <div>Loading...</div>;
+if (!post) return <div>Error: {error || 'Cannot load post'}</div>;
 
   return (
     <div className="container mt-4">

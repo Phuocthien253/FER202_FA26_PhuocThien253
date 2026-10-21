@@ -12,50 +12,57 @@ const DeletePost = () => {
   const [deletingId, setDeletingId] = useState(null);
 
   // GET: Lay 5 bai viet dau tien
-  useEffect(() => {
-    axios
-      .get(API, {
+
+useEffect(() => {
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get(API, {
         params: { _limit: 5 }
-      })
-      .then(response => {
-        setPosts(response.data);
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setLoading(false);
       });
-  }, []);
+      setPosts(response.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchPosts();
+}, []);
+
 
   // DELETE: Xoa bai viet theo ID
-  const handleDelete = (id) => {
-    if (!window.confirm(`Xoa bai viet #${id}?`)) {
-      return;
-    }
 
-    setDeletingId(id);
-    setError(null);
-    setMessage('');
+const handleDelete = async (id) => {
+  if (!window.confirm(`Xoa bai viet #${id}?`)) {
+    return;
+  }
 
-    axios
-      .delete(`${API}/${id}`)
-      .then(response => {
-        setPosts(prevPosts =>
-          prevPosts.filter(post => post.id !== id)
-        );
+  setDeletingId(id);
+  setError(null);
+  setMessage('');
 
-        setMessage(
-          `Da xoa bai viet #${id} - Status: ${response.status}`
-        );
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setDeletingId(null);
-      });
-  };
+  try {
+    const response = await axios.delete(
+      `${API}/${id}`
+    );
+
+    setPosts(prevPosts =>
+      prevPosts.filter(post => post.id !== id)
+    );
+
+    setMessage(
+      `Da xoa bai viet #${id} - Status: ${response.status}`
+    );
+
+  } catch (error) {
+    setError(error.message);
+
+  } finally {
+    setDeletingId(null);
+  }
+};
+
 
   if (loading) {
     return <div>Loading...</div>;

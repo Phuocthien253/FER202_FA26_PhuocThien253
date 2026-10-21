@@ -5,54 +5,67 @@ import axios from 'axios';
 const RequestConfig = () => {
   const [info, setInfo] = useState(null);
   const [error, setError] = useState(null);
+const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios({
-      method: 'get',
-      url: 'https://jsonplaceholder.typicode.com/posts',
-
-      params: {
-        _page: 1,
-        _limit: 3
-      },
-
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer demo-token-123'
-      },
-
-      timeout: 5000
-    })
-      .then(response => {
-        setInfo({
-          status: response.status,
-          contentType: response.headers['content-type'],
-          total: response.headers['x-total-count'],
-          data: response.data
-        });
-      })
-      .catch(error => {
-        if (error.code === 'ECONNABORTED') {
-          setError('Request qua thoi gian (timeout)');
-        } else if (error.response) {
-          setError(`Server tra loi ${error.response.status}`);
-        } else {
-          setError(error.message);
-        }
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        params: {
+          _page: 1,
+          _limit: 3
+        },
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer demo-token-123'
+        },
+        timeout: 5000
       });
-  }, []);
 
-  if (error) {
-    return (
-      <div className="alert alert-danger">
-        Error: {error}
-      </div>
-    );
-  }
+      setInfo({
+        status: response.status,
+        contentType: response.headers['content-type'],
+        total: response.headers['x-total-count'],
+        data: response.data
+      });
 
-  if (!info) {
-    return <div>Loading...</div>;
-  }
+    } catch (error) {
+      if (error.code === 'ECONNABORTED') {
+        setError('Request qua thoi gian');
+      } else if (error.response) {
+        setError(`Server tra loi ${error.response.status}`);
+      } else {
+        setError(error.message);
+      }
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+
+
+
+if (loading) {
+  return <div>Loading...</div>;
+}
+
+if (error) {
+  return (
+    <div className="alert alert-danger">
+      Error: {error}
+    </div>
+  );
+}
+
+if (!info) {
+  return <div>Khong co du lieu</div>;
+}
+
 
   return (
     <div className="container mt-4">

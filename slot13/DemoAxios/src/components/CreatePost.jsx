@@ -9,33 +9,39 @@ const CreatePost = () => {
   const [error, setError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setError(null);
-    setResult(null);
+  
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setSubmitting(true);
+  setError(null);
+  setResult(null);
 
-    axios
-      .post('https://jsonplaceholder.typicode.com/posts', {
+  try {
+    const response = await axios.post(
+      'https://jsonplaceholder.typicode.com/posts',
+      {
         title: title,
         body: body,
-        userId: 1,
-      })
-      .then(response => {
-        setResult({
-          status: response.status,
-          data: response.data
-        });
-        setTitle('');
-        setBody('');
-      })
-      .catch(error => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
-  };
+        userId: 1
+      }
+    );
+
+    setResult({
+      status: response.status,
+      data: response.data
+    });
+
+    setTitle('');
+    setBody('');
+
+  } catch (error) {
+    setError(error.message);
+
+  } finally {
+    setSubmitting(false);
+  }
+};
+
 
   return (
     <div className="container mt-4">
