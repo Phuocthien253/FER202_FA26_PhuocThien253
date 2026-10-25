@@ -1,113 +1,54 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { Alert, Button, Card, Form } from 'react-bootstrap';
 
-const API = 'https://jsonplaceholder.typicode.com/posts';
+function DeletePost() {
+  const [id, setId] = useState('1');
+  const [result, setResult] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-const DeletePost = () => {
-  const [posts, setPosts] = useState([]);
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [deletingId, setDeletingId] = useState(null);
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setResult('');
 
-  // GET: Lay 5 bai viet dau tien
-
-useEffect(() => {
-  const fetchPosts = async () => {
     try {
-      const response = await axios.get(API, {
-        params: { _limit: 5 }
-      });
-      setPosts(response.data);
-    } catch (error) {
-      setError(error.message);
+      const response = await axios.delete(
+        `https://jsonplaceholder.typicode.com/posts/${id}`
+      );
+      setResult(`DELETE thành công — Status: ${response.status}`);
+    } catch (err) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  fetchPosts();
-}, []);
-
-
-  // DELETE: Xoa bai viet theo ID
-
-const handleDelete = async (id) => {
-  if (!window.confirm(`Xoa bai viet #${id}?`)) {
-    return;
-  }
-
-  setDeletingId(id);
-  setError(null);
-  setMessage('');
-
-  try {
-    const response = await axios.delete(
-      `${API}/${id}`
-    );
-
-    setPosts(prevPosts =>
-      prevPosts.filter(post => post.id !== id)
-    );
-
-    setMessage(
-      `Da xoa bai viet #${id} - Status: ${response.status}`
-    );
-
-  } catch (error) {
-    setError(error.message);
-
-  } finally {
-    setDeletingId(null);
-  }
-};
-
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="container mt-4">
-      <h2>DELETE - Delete Post</h2>
+    <Card className="mb-4">
+      <Card.Header>2.5 — DELETE bài viết</Card.Header>
+      <Card.Body>
+        <Form onSubmit={handleDelete} className="d-flex gap-2">
+          <Form.Control
+            type="number"
+            min="1"
+            max="100"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            required
+          />
+          <Button variant="danger" type="submit" disabled={loading}>
+            {loading ? 'Đang xóa...' : 'Xóa'}
+          </Button>
+        </Form>
 
-      {message && (
-        <div className="alert alert-success mt-3">
-          {message}
-        </div>
-      )}
-
-      {error && (
-        <div className="alert alert-danger mt-3">
-          Error: {error}
-        </div>
-      )}
-
-      <ul className="list-group mt-3">
-        {posts.map(post => (
-          <li
-            key={post.id}
-            className="list-group-item d-flex justify-content-between align-items-center gap-3"
-          >
-            <span>
-              #{post.id} - {post.title}
-            </span>
-
-            <button
-              className="btn btn-danger btn-sm"
-              onClick={() => handleDelete(post.id)}
-              disabled={deletingId !== null}
-            >
-              {deletingId === post.id
-                ? 'Deleting...'
-                : 'Delete'}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+        {result && <Alert variant="success" className="mt-3">{result}</Alert>}
+        {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+      </Card.Body>
+    </Card>
   );
-};
+}
 
 export default DeletePost;

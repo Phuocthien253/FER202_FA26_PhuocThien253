@@ -1,100 +1,68 @@
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { Alert, Button, Card, Form } from 'react-bootstrap';
 
-const CreatePost = () => {
+function CreatePost() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
-  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setSubmitting(true);
-  setError(null);
-  setResult(null);
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setResult(null);
 
-  try {
-    const response = await axios.post(
-      'https://jsonplaceholder.typicode.com/posts',
-      {
-        title: title,
-        body: body,
-        userId: 1
-      }
-    );
-
-    setResult({
-      status: response.status,
-      data: response.data
-    });
-
-    setTitle('');
-    setBody('');
-
-  } catch (error) {
-    setError(error.message);
-
-  } finally {
-    setSubmitting(false);
-  }
-};
-
+    try {
+      const response = await axios.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        { title, body, userId: 1 }
+      );
+      setResult(response.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="container mt-4">
-      <h2>POST - Create New Post</h2>
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Title</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter title"
+    <Card className="mb-4">
+      <Card.Header>2.2 — POST tạo bài viết</Card.Header>
+      <Card.Body>
+        <Form onSubmit={handleCreate}>
+          <Form.Control
+            className="mb-2"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            placeholder="Tiêu đề"
             required
           />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Body</label>
-          <textarea
-            className="form-control"
-            placeholder="Enter post content"
+          <Form.Control
+            as="textarea"
+            className="mb-2"
             value={body}
             onChange={(e) => setBody(e.target.value)}
+            placeholder="Nội dung"
             required
           />
-        </div>
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Đang gửi...' : 'Tạo bài viết'}
+          </Button>
+        </Form>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={submitting}
-        >
-          {submitting ? 'Submitting...' : 'Create Post'}
-        </button>
-      </form>
-
-      {error && (
-        <div className="alert alert-danger mt-3">
-          Error: {error}
-        </div>
-      )}
-
-      {result && (
-        <div className="alert alert-success mt-4">
-          <h5>Post Created Successfully!</h5>
-          <p>Status: {result.status}</p>
-          <pre>{JSON.stringify(result.data, null, 2)}</pre>
-        </div>
-      )}
-    </div>
+        {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+        {result && (
+          <Alert variant="success" className="mt-3">
+            POST thành công — Status: 201, ID: {result.id}
+            <pre className="mb-0 mt-2">{JSON.stringify(result, null, 2)}</pre>
+          </Alert>
+        )}
+      </Card.Body>
+    </Card>
   );
-};
+}
 
 export default CreatePost;

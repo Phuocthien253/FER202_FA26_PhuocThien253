@@ -1,61 +1,45 @@
-
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Alert, Card, Spinner } from 'react-bootstrap';
 
-const AxiosDemo = () => {
-  const [posts, setPosts] = useState([]);
-  const [error, setError] = useState(null);
+function AxiosDemo() {
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  
-useEffect(() => {
-  const fetchPosts = async () => {
-    try {
-      const response = await axios.get(
-        'https://jsonplaceholder.typicode.com/posts'
-      );
-      setPosts(response.data);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get(
+          'https://jsonplaceholder.typicode.com/posts/1'
+        );
+        setData(response.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchPosts();
-}, []);
-
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="text-danger">Error: {error}</p>;
-  }
+    fetchPost();
+  }, []);
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">Axios Demo - Post List</h2>
-
-      <div className="row">
-        {posts.map(post => (
-          <div className="col-md-6 mb-3" key={post.id}>
-            <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title">
-                  {post.id}. {post.title}
-                </h5>
-                <p className="card-text">
-                  {post.body}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Card className="mb-4">
+      <Card.Header>Phần 1 — GET một bài viết</Card.Header>
+      <Card.Body>
+        {loading && <Spinner animation="border" />}
+        {error && <Alert variant="danger">Lỗi: {error}</Alert>}
+        {data && (
+          <>
+            <h5>{data.title}</h5>
+            <p>{data.body}</p>
+            <small>Post ID: {data.id}</small>
+          </>
+        )}
+      </Card.Body>
+    </Card>
   );
-};
+}
 
 export default AxiosDemo;

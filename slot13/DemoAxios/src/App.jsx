@@ -1,6 +1,6 @@
-
+import Container from 'react-bootstrap/Container';
 import AxiosDemo from './components/AxiosDemo';
-import PostList from './components/PostList';
+import GetPosts from './components/GetPosts';
 import CreatePost from './components/CreatePost';
 import UpdatePost from './components/UpdatePost';
 import PatchPost from './components/PatchPost';
@@ -9,36 +9,19 @@ import RequestConfig from './components/RequestConfig';
 
 function App() {
   return (
-    <div className="container mt-5">
-      <h1>DemoAxios</h1>
+    <Container className="py-4">
+      <h1 className="text-primary">DemoAxios</h1>
+      <p>Exercise 27: Demo about Axios</p>
       <hr />
 
-      <RequestConfig />
-
-      <hr className="my-5" />
-
-      <DeletePost />
-
-      <hr className="my-5" />
-
-      <PatchPost />
-
-      <hr className="my-5" />
-
-      <UpdatePost />
-
-      <hr className="my-5" />
-
-      <CreatePost />
-
-      <hr className="my-5" />
-
-      <PostList />
-
-      <hr className="my-5" />
-
       <AxiosDemo />
-    </div>
+      <GetPosts />
+      <CreatePost />
+      <UpdatePost />
+      <PatchPost />
+      <DeletePost />
+      <RequestConfig />
+    </Container>
   );
 }
 

@@ -1,124 +1,76 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { Alert, Button, Card, Form } from 'react-bootstrap';
 
-const URL = 'https://jsonplaceholder.typicode.com/posts/1';
-
-const UpdatePost = () => {
-  const [post, setPost] = useState(null);
+function UpdatePost() {
+  const [id, setId] = useState('1');
+  const [title, setTitle] = useState('Updated title');
+  const [body, setBody] = useState('Updated body');
   const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
-  const [updating, setUpdating] = useState(false);
-  const [loadingPost, setLoadingPost] = useState(true);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // Giu nguyen useEffect va handleUpdate ben duoi
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setResult(null);
 
-
-  // GET: Lay du lieu bai viet hien tai
-  
-useEffect(() => {
-  const fetchPost = async () => {
     try {
-      const response = await axios.get(URL);
-      setPost(response.data);
-    } catch (error) {
-      setError(error.message);
+      const response = await axios.put(
+        `https://jsonplaceholder.typicode.com/posts/${id}`,
+        { id: Number(id), title, body, userId: 1 }
+      );
+      setResult(response.data);
+    } catch (err) {
+      setError(err.message);
     } finally {
-      setLoadingPost(false);
+      setLoading(false);
     }
   };
 
-  fetchPost();
-}, []);
-
-  // PUT: Cap nhat toan bo bai viet
-
-const handleUpdate = async (e) => {
-  e.preventDefault();
-  setUpdating(true);
-  setError(null);
-  setResult(null);
-
-  try {
-    const response = await axios.put(URL, {
-      id: post.id,
-      userId: post.userId,
-      title: post.title,
-      body: post.body
-    });
-
-    setResult({
-      status: response.status,
-      data: response.data
-    });
-
-  } catch (error) {
-    setError(error.message);
-
-  } finally {
-    setUpdating(false);
-  }
-};
-
-
-if (loadingPost) return <div>Loading...</div>;
-if (!post) return <div>Error: {error || 'Cannot load post'}</div>;
-
   return (
-    <div className="container mt-4">
-      <h2>PUT - Update Post #{post.id}</h2>
-
-      <form onSubmit={handleUpdate}>
-        <div className="mb-3">
-          <label className="form-label">Title</label>
-          <input
-            type="text"
-            className="form-control"
-            value={post.title}
-            onChange={(e) =>
-              setPost({ ...post, title: e.target.value })
-            }
+    <Card className="mb-4">
+      <Card.Header>2.3 — PUT cập nhật toàn bộ bài viết</Card.Header>
+      <Card.Body>
+        <Form onSubmit={handleUpdate}>
+          <Form.Control
+            className="mb-2"
+            type="number"
+            min="1"
+            max="100"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
             required
           />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Body</label>
-          <textarea
-            className="form-control"
-            rows="4"
-            value={post.body}
-            onChange={(e) =>
-              setPost({ ...post, body: e.target.value })
-            }
+          <Form.Control
+            className="mb-2"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             required
           />
-        </div>
+          <Form.Control
+            as="textarea"
+            className="mb-2"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            required
+          />
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Đang cập nhật...' : 'PUT cập nhật'}
+          </Button>
+        </Form>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={updating}
-        >
-          {updating ? 'Updating...' : 'Update Post (PUT)'}
-        </button>
-      </form>
-
-      {error && (
-        <div className="alert alert-danger mt-3">
-          Error: {error}
-        </div>
-      )}
-
-      {result && (
-        <div className="alert alert-success mt-4">
-          <h5>Post Updated Successfully!</h5>
-          <p>Status: {result.status}</p>
-          <pre>{JSON.stringify(result.data, null, 2)}</pre>
-        </div>
-      )}
-    </div>
+        {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+        {result && (
+          <Alert variant="success" className="mt-3">
+            PUT thành công — Status: 200
+            <pre className="mb-0 mt-2">{JSON.stringify(result, null, 2)}</pre>
+          </Alert>
+        )}
+      </Card.Body>
+    </Card>
   );
-};
+}
 
 export default UpdatePost;
