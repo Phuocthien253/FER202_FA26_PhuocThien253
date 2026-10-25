@@ -1,0 +1,71 @@
+{
+  
+"posts": [
+  {
+    "id": "1",
+    "title": "Learn React",
+    "body": "React helps us build interactive user interfaces.",
+    "userId": 1
+  },
+  {
+    "id": "2",
+    "title": "Learn Axios",
+    "body": "Axios makes HTTP requests easier to manage.",
+    "userId": 1
+  },
+  {
+    "id": "3",
+    "title": "Learn React Router",
+    "body": "React Router helps build multi-page React applications.",
+    "userId": 2
+  },
+  {
+    "id": "4",
+    "title": "Learn JavaScript",
+    "body": "JavaScript makes websites interactive.",
+    "userId": 1
+  },
+  {
+    "id": "5",
+    "title": "Learn JSON Server",
+    "body": "JSON Server provides a simple REST API for testing CRUD.",
+    "userId": 2
+  }
+],
+
+  "users": [
+    {
+      "id": "1",
+      "name": "Nguyen Van An",
+      "email": "an@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Tran Thi Binh",
+      "email": "binh@example.com"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "postId": "1",
+      "name": "Comment One",
+      "email": "user1@example.com",
+      "body": "This is a comment on the first post."
+    },
+    {
+      "id": "2",
+      "postId": "1",
+      "name": "Comment Two",
+      "email": "user2@example.com",
+      "body": "This is another comment on the first post."
+    },
+    {
+      "id": "3",
+      "postId": "2",
+      "name": "Comment Three",
+      "email": "user3@example.com",
+      "body": "This is a comment on the second post."
+    }
+  ]
+}
